@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom";
+import './style/style.scss';
 
 import HomePage from "./components/basic/HomePage";
 import Navbar from "./components/basic/Navbar";
@@ -10,14 +11,13 @@ import TaskDetail from "./components/task/TaskDetail";
 import UserPage from "./components/user/UserPage";
 
 class App extends Component {
+
     render() {
       return (
         <div>
           <Navbar />
 
           <div className="container">
-            App Component 
-
             <Switch>
               <Route path="/home">
                 <HomePage />
@@ -39,7 +39,6 @@ class App extends Component {
               </Route>
             </Switch> 
           </div>
-
 
         </div>
 

@@ -6,7 +6,7 @@ class Navbar extends Component {
       return (
         <div>
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <h4 className="navbar-brand">Navbar</h4>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <Link to="/home" className="nav-item nav-link">Home</Link>
