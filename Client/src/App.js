@@ -6,6 +6,7 @@ import HomePage from "./components/basic/HomePage";
 import Navbar from "./components/basic/Navbar";
 import ProjectList from "./components/project/ProjectList";
 import ProjectDetail from "./components/project/ProjectDetail";
+import ProjectForm from "./components/project/ProjectForm";
 import TaskList from "./components/task/TaskList";
 import TaskDetail from "./components/task/TaskDetail";
 import UserPage from "./components/user/UserPage";
@@ -19,7 +20,7 @@ class App extends Component {
 
           <div className="container">
             <Switch>
-              <Route path="/home">
+              <Route exact path="/">
                 <HomePage />
               </Route>
               <Route path="/user/:id">
@@ -31,11 +32,12 @@ class App extends Component {
               <Route path="/task/:id">
                 <TaskDetail />
               </Route>
-              <Route path="/projects/">
+              <Route exact path="/projects/">
                 <ProjectList />
               </Route>
-              <Route path="/project/:id">
-                <ProjectDetail />
+              <Route path="/project/:id" component={ProjectDetail}></Route>
+              <Route path="/projects/form">
+                <ProjectForm />
               </Route>
             </Switch> 
           </div>

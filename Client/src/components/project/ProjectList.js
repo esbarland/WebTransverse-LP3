@@ -53,8 +53,10 @@ class ProjectList extends Component {
   render() {
     return (
       <div>
+        <div className="text-right">
+          <Link className="btn btn-success text-white" to="/projects/form">Ajouter un projet</Link>
+        </div>
         <h1 className="text-center">Liste des projets</h1>
-
         <Projects />
       </div>
     );
