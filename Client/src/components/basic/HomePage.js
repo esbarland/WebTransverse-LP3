@@ -19,8 +19,8 @@ function CheckConfig() {
 class HomePage extends Component {
     render() {
       return (
-        <div>
-          Home Component
+        <div className="text-center">
+          <h1>Bienvenue sur le site de gestionnaire de tâches !</h1>
 
           <div>
             GraphQL status: <CheckConfig />
