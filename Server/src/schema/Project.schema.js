@@ -37,7 +37,7 @@ export const resolvers = {
       return Project.schema();
     },
     projects: async () => {
-      return await Project.find();
+      return await Project.find().populate('tasks');
     },
     project: async (root, { _id }, context, info) => {
       return await Project.findById({_id});
