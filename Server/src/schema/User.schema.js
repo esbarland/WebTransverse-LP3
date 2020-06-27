@@ -20,7 +20,7 @@ export const typeDef = `
     user(_id: ID!): User
   }
   extend type Mutation {
-    createUser(name: String!,pseudo: String!): User
+    createUser(pseudo: String!,password: String!): User
     createUserWithInput(input: UserInput!): User
     deleteUser(_id: ID!): Boolean
     updateUser(_id: ID!,input: UserInput!): User
