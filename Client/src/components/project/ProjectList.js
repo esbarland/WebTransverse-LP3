@@ -35,7 +35,7 @@ function Projects() {
               {item.name}
             </div>
             <div className="card-body">
-              <h5 className="card-title">Ce projet contient {item.tasks.length} tâches.</h5>
+              <h5 className="card-title">Ce projet contient {item.tasks ? item.tasks.lenght : 0} tâches.</h5>
               <p className="card-text">{item.description}</p>
               <Link className="btn btn-primary" to={("/project/" + item._id.toString())}>Détails</Link>
             </div>

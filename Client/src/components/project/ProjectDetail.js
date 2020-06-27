@@ -30,6 +30,10 @@ function Project({ arg, id }) {
 
   const project = data.project;
 
+  if(project.tasks == null){
+    project.tasks = [];
+  }
+
   return (
     <div>
       <h3>{project.name}</h3>

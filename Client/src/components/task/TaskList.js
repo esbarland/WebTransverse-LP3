@@ -53,6 +53,10 @@ class TaskList extends Component {
     render() {
       return (
         <div>
+        <div className="text-right">
+          <Link className="btn btn-success text-white" to="/tasks/form">Ajouter une tâche</Link>
+        </div>
+
           <h1 className="text-center">Liste des tâches</h1>
 
           <Tasks />

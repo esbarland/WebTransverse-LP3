@@ -5,14 +5,16 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const ADD_USER = gql`
-  mutation addUser($name: String! ,$pseudo: String!) {
-    createUser(name: $name, pseudo: $pseudo)
+  mutation addUser($pseudo: String! ,$password: String!) {
+    createUser(pseudo: $pseudo, password: $password){
+      pseudo
+    }
   }
 `;
 
 function AddUser() {
-  let name;
   let pseudo;
+  let password;
   const [addUser] = useMutation(ADD_USER);
   var history = useHistory();
 
@@ -21,20 +23,20 @@ function AddUser() {
       <form
         onSubmit={e => {
           e.preventDefault();
-          addUser({ variables: { name: name.value, pseudo: pseudo.value } });
-          name.value = '';
+          addUser({ variables: { pseudo: pseudo.value, password: password.value } });
           pseudo.value = '';
+          password.value = '';
           history.push('/');
         }}
       >
         <div className="form-group">          
-          <label>Nom:</label>
-          <input className="form-control" ref={node => { name = node; }} />
+          <label>Pseudo:</label>
+          <input className="form-control" ref={node => { pseudo = node; }} />
         </div>
 
         <div className="form-group">          
-          <label>Pseudo:</label>
-          <input className="form-control" ref={node => { pseudo = node; }} />
+          <label>Mot de passe:</label>
+          <input type="password" className="form-control" ref={node => { password = node; }} />
         </div>
         
         <div>

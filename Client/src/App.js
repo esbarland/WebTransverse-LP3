@@ -9,6 +9,7 @@ import ProjectDetail from "./components/project/ProjectDetail";
 import ProjectForm from "./components/project/ProjectForm";
 import TaskList from "./components/task/TaskList";
 import TaskDetail from "./components/task/TaskDetail";
+import TaskForm from "./components/task/TaskForm";
 import UserPage from "./components/user/UserPage";
 import UserForm from "./components/user/UserForm";
 import UserLogin from "./components/user/UserLogin";
@@ -28,11 +29,14 @@ class App extends Component {
               <Route exact path="/user/:id">
                 <UserPage />
               </Route>
-              <Route path="/tasks">
+              <Route exact path="/tasks">
                 <TaskList />
               </Route>
               <Route path="/task/:id">
                 <TaskDetail />
+              </Route>
+              <Route path="/tasks/form">
+                <TaskForm />
               </Route>
               <Route exact path="/projects/">
                 <ProjectList />

@@ -4,18 +4,18 @@ import gql from "graphql-tag";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-const ADD_PROJECT = gql`
-  mutation addProject($name: String! ,$description: String!) {
-    createProject(name: $name, description: $description){
+const ADD_TASK = gql`
+  mutation addTask($name: String! ,$description: String!) {
+    createTask(name: $name, description: $description){
       name
     }
   }
 `;
 
-function AddProject() {
+function AddTask() {
   let name;
   let description;
-  const [addProject] = useMutation(ADD_PROJECT);
+  const [addTask] = useMutation(ADD_TASK);
   var history = useHistory();
 
   return (
@@ -23,14 +23,14 @@ function AddProject() {
       <form
         onSubmit={e => {
           e.preventDefault();
-          addProject({ variables: { name: name.value, description: description.value } });
+          addTask({ variables: { name: name.value, description: description.value } });
           name.value = '';
           description.value = '';
-          history.push('/projects');
+          history.push('/');
         }}
       >
         <div className="form-group">          
-          <label>Title:</label>
+          <label>Nom:</label>
           <input className="form-control" ref={node => { name = node; }} />
         </div>
 
@@ -40,22 +40,22 @@ function AddProject() {
         </div>
         
         <div>
-          <button type="submit" className="btn btn-success">Créer</button>
+            <Link className="btn btn-danger text-white mr-2" to="/">Retour</Link>
+          <button type="submit" className="btn btn-success">Créer une tâche</button>
         </div>
       </form>
     </div>
   );
 }
 
-class ProjectForm extends Component {
+class TaskForm extends Component {
     render() {
       return (
         <div>
-          <Link className="btn btn-danger text-white" to="/projects">Retour</Link>
-          <AddProject />
+          <AddTask />
         </div>
       );
     }
 }
 
-export default ProjectForm;
+export default TaskForm;
