@@ -7,18 +7,12 @@ const ignoredFields = ['_id','created_at', '__v', /detail.*_info/];
 export const typeDef = `
   type User {
     _id: ID!
-    name: String
-    surname: String
     pseudo: String
     password: String
-    token: String
   }
   input UserInput{
-    name: String
-    surname: String
     pseudo: String
     password: String
-    token: String
   }
   extend type Query {
     userSchemaAssert: String
@@ -50,15 +44,15 @@ export const resolvers = {
   },
   Mutation: {
     createUser: async (root, args, context, info) => {
-      await User.create(args);
-      return User.name;
+      return await User.create(args);
     },
     createUserWithInput: async (root, { input }, context, info) => {
       //input.password = await bcrypt.hash(input.password, 10);
       return User.create(input);
     },
     deleteUser: async (root, { _id }, context, info) => {
-      return User.remove({ _id });
+      User.remove({ _id });
+      return true;
     },
     updateUser: async (root, { _id, input }) => {
       return User.findByIdAndUpdate(_id, input, { new: true });

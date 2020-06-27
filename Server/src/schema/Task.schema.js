@@ -7,16 +7,17 @@ const ignoredFields = ['_id','created_at', '__v', /detail.*_info/];
 
 export const typeDef = `
   type Task {
+    _id: ID!
     name: String
     description: String
     duration: String
-    Status: Int
+    status: Int
   }
   input TaskInput{
     name: String
     description: String
     duration: String
-    Status: Int
+    status: Int
   }
   extend type Query {
     taskSchemaAssert: String
@@ -24,7 +25,7 @@ export const typeDef = `
     task(_id: ID!): Task
   }
   extend type Mutation {
-    createTask(name: String!,description: String!): Boolean
+    createTask(name: String!,description: String!): Task
     createTaskWithInput(input: TaskInput!): Task
     deleteTask(_id: ID!): Boolean
     updateTask(_id: ID!,input: TaskInput!): Task
@@ -45,15 +46,15 @@ export const resolvers = {
   },
   Mutation: {
     createTask: async (root, args, context, info) => {
-      await Task.create(args);
-      return Task.name;
+      return await Task.create(args);
     },
     createTaskWithInput: async (root, { input }, context, info) => {
       //input.password = await bcrypt.hash(input.password, 10);
       return Task.create(input);
     },
     deleteTask: async (root, { _id }, context, info) => {
-      return Task.remove({ _id });
+      Task.remove({ _id });
+      return true;
     },
     updateTask: async (root, { _id, input }) => {
       return Task.findByIdAndUpdate(_id, input, { new: true });

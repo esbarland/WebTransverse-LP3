@@ -48,15 +48,15 @@ export const resolvers = {
   },
   Mutation: {
     createProject: async (root, args, context, info) => {
-      await Project.create(args);
-      return Project.name;
+      return await Project.create(args);
     },
     createProjectWithInput: async (root, { input }, context, info) => {
       //input.password = await bcrypt.hash(input.password, 10);
       return Project.create(input);
     },
     deleteProject: async (root, { _id }, context, info) => {
-      return Project.remove({ _id });
+      Project.remove({ _id });
+      return true;
     },
     updateProject: async (root, { _id, input }) => {
       return Project.findByIdAndUpdate(_id, input, { new: true });
