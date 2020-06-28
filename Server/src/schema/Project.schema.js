@@ -20,7 +20,6 @@ export const typeDef = `
     projectSchemaAssert: String
     projects: [Project]
     project(_id: ID!): Project
-    projectsWithTasks: [Project]
   }
   extend type Mutation {
     createProject(name: String!,description: String!): Project
@@ -41,9 +40,6 @@ export const resolvers = {
     },
     project: async (root, { _id }, context, info) => {
       return await Project.findById({_id});
-    },
-    projectsWithTasks: async() => {
-      return await Project.find().populate('task');
     }
   },
   Mutation: {
