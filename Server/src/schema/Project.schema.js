@@ -1,5 +1,6 @@
 // project.js
 import {Project} from "../models/Project";
+import { Task } from "../models/Task";
 //Required for dummy data
 const dummy = require('mongoose-dummy');
 const ignoredFields = ['_id','created_at', '__v', /detail.*_info/];
@@ -26,7 +27,7 @@ export const typeDef = `
     createProjectWithInput(input: ProjectInput!): Project
     deleteProject(_id: ID!): Project
     updateProject(_id: ID!,input: ProjectInput!): Project
-    addTaskToProject(_task: TaskInput!): Project
+    addTaskToProject(_idProjet: ID!, _idTask: ID!): Project
   }
 `;
 
@@ -39,12 +40,12 @@ export const resolvers = {
       return await Project.find().populate('task');
     },
     project: async (root, { _id }, context, info) => {
-      return await Project.findById({_id});
+      return await Project.findById({_id}).populate('task');
     }
   },
   Mutation: {
     createProject: async (root, args, context, info) => {
-      return await Project.create(args);
+      return await Project.create(args);;
     },
     createProjectWithInput: async (root, { input }, context, info) => {
       //input.password = await bcrypt.hash(input.password, 10);
@@ -57,9 +58,14 @@ export const resolvers = {
     updateProject: async (root, { _id, input }) => {
       return await Project.findByIdAndUpdate(_id, input, { new: true });
     },
-    addTaskToProject: async (root, {_task}) => {
-      await Project.tasks.push(_task);
-      return Project;
+    addTaskToProject: async (root, {_idProjet,_idTask}) => {
+      var project = await Project.findById(_idProjet);
+      if(project.tasks == undefined)
+        project.tasks = [_idTask];    
+      else
+        project.tasks.push(_idTask);
+      await Project.findByIdAndUpdate(project._id, {tasks: project.tasks}); 
+      return project;
     }
   },
 };
