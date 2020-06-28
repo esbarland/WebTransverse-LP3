@@ -47,7 +47,7 @@ export const resolvers = {
       return await User.create(args);
     },
     createUserWithInput: async (root, { input }, context, info) => {
-      //input.password = await bcrypt.hash(input.password, 10);
+      input.password = await bcrypt.hash(input.password, 10);
       return User.create(input);
     },
     deleteUser: async (root, { _id }, context, info) => {
