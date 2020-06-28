@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Status from "../task/Status";
 
 const GET_PROJECT = gql`
-  query Projects($id: ID!) {
+  query Project($id: ID!) {
     project(_id: $id) {
       _id
       name
@@ -20,10 +22,20 @@ const GET_PROJECT = gql`
   }
 `;
 
+const REMOVE_PROJECT = gql`
+  mutation deleteProjet($id: ID!){
+    deleteProject(_id: $id){
+      name
+    }
+  }
+`;
+
 function Project({ arg, id }) {
   const { loading, error, data } = useQuery(GET_PROJECT, {
     variables: { id }
   });
+  const [removeProject] = useMutation(REMOVE_PROJECT);
+  var history = useHistory();
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
@@ -36,20 +48,16 @@ function Project({ arg, id }) {
 
   return (
     <div>
-      <h3>{project.name}</h3>
-      <p>{project.description}</p>
+      <h5>Nom: {project.name}</h5>
+      <h6>Nom: {project._id}</h6>
+      <h6>Desription: {project.description}</h6>
 
+      <hr />
       
       {project.tasks.map(item =>
           <div key={item._id} className="card text-center m-3 border-dark">
             <div className="card-header">
-              {item.name}
-            </div>
-            <div className="card-body">
-              <p className="card-text">{item.description}</p>
-            </div>
-            <div className="card-footer text-muted">
-              {item.duration}
+              Identifiant de la tâche: {item._id}
             </div>
           </div>
         )}
@@ -59,15 +67,21 @@ function Project({ arg, id }) {
           Ce projet ne contient pas de tâches
         </div>
       }
+      
+      <button className="btn btn-danger" onClick={() => callMutationDeleteProject(removeProject, history, project._id)}>Supprimer ce projet</button>
 
     </div>
   );
 }
 
+function callMutationDeleteProject(removeProject, history, id) {
+  removeProject({ variables: { id } });
+  history.push('/projects');
+}
+
 class ProjectDetail extends Component {
     render() {
       
-    console.log("projectdetail: ", this);
       return (
         <div>
           <Link className="btn btn-danger text-white" to="/projects">Retour</Link>

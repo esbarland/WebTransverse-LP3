@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const ADD_TASK = gql`
-  mutation addTask($name: String! ,$description: String!) {
-    createTask(name: $name, description: $description){
+  mutation addTask($name: String! ,$description: String!, $duration: String!, $status: Int!) {
+    createTask(name: $name, description: $description, duration: $duration, status: $status){
       name
     }
   }
@@ -15,6 +15,8 @@ const ADD_TASK = gql`
 function AddTask() {
   let name;
   let description;
+  let duration;
+  let status;
   const [addTask] = useMutation(ADD_TASK);
   var history = useHistory();
 
@@ -23,10 +25,12 @@ function AddTask() {
       <form
         onSubmit={e => {
           e.preventDefault();
-          addTask({ variables: { name: name.value, description: description.value } });
+          addTask({ variables: { name: name.value, description: description.value, duration: duration.value, status: parseInt(status.value, 10) } });
           name.value = '';
           description.value = '';
-          history.push('/');
+          description.duration = '';
+          description.value = '';
+          history.push('/tasks');
         }}
       >
         <div className="form-group">          
@@ -38,9 +42,19 @@ function AddTask() {
           <label>Description:</label>
           <input className="form-control" ref={node => { description = node; }} />
         </div>
+
+        <div className="form-group">          
+          <label>Durée:</label>
+          <input className="form-control" ref={node => { duration = node; }} />
+        </div>
+
+        <div className="form-group">          
+          <label>Status:</label>
+          <input type="number" className="form-control" ref={node => { status = node; }} />
+        </div>
         
         <div>
-            <Link className="btn btn-danger text-white mr-2" to="/">Retour</Link>
+            <Link className="btn btn-danger text-white mr-2" to="/tasks">Retour</Link>
           <button type="submit" className="btn btn-success">Créer une tâche</button>
         </div>
       </form>

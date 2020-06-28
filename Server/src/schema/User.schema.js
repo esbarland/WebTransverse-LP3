@@ -3,6 +3,7 @@ import {User} from "../models/User";
 //Required for dummy data
 const dummy = require('mongoose-dummy');
 const ignoredFields = ['_id','created_at', '__v', /detail.*_info/];
+const bcrypt = require("bcrypt");
 
 export const typeDef = `
   type User {
@@ -44,6 +45,7 @@ export const resolvers = {
   },
   Mutation: {
     createUser: async (root, args, context, info) => {
+      args.password = await bcrypt.hash(args.password, 10);
       return await User.create(args);
     },
     createUserWithInput: async (root, { input }, context, info) => {

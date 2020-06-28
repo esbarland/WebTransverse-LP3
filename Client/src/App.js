@@ -32,9 +32,7 @@ class App extends Component {
               <Route exact path="/tasks">
                 <TaskList />
               </Route>
-              <Route path="/task/:id">
-                <TaskDetail />
-              </Route>
+              <Route path="/task/:id" component={TaskDetail}></Route>
               <Route path="/tasks/form">
                 <TaskForm />
               </Route>

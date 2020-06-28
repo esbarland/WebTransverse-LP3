@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
+import Status from "./Status";
 
 const GET_TASKS = gql`
   {
@@ -9,7 +10,7 @@ const GET_TASKS = gql`
       _id 
       name 
       description 
-      duration 
+      duration
       status
     }
   }
@@ -21,27 +22,25 @@ function Tasks() {
   if (loading) return "Chargement...";
   if (error) 
     return (
-      <div class="alert alert-danger" role="alert">
+      <div className="alert alert-danger" role="alert">
         Erreur ! {error.message}
       </div>
     );
 
   return (
-      <div>
+      <div className="">
         {data.tasks.map(item =>
           <div key={item._id} className="card m-3 border-warning">
             <div className="card-header">
-              {item.name}
+              {item.name} - 
+        {item._id}
             </div>
             <div className="card-body">
-              <p className="card-text">Id: {item._id}</p>
-              <p className="card-text">Durée: {item.duration}</p>
-              <p className="card-text">Status: {item.status}</p>
-              <p className="card-text">Description: {item.description}</p>
-              <Link className="btn btn-primary" to={("/task/" + item._id.toString())}>Détails</Link>
+              <Status status={item.status} />
+              <Link className="btn btn-primary mt-2" to={("/task/" + item._id.toString())}>Détails</Link>
             </div>
             <div className="card-footer text-muted">
-              2 jours restants
+              Durée: {item.duration} 
             </div>
           </div>
         )}

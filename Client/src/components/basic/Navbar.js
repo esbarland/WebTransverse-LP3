@@ -14,9 +14,9 @@ class Navbar extends Component {
                 <Link to="/tasks" className="nav-item nav-link">Tâches</Link>
               </ul>
 
-              <div class="btn-group">
-                <Link class="btn btn-primary" to="/users/login">Connexion</Link>
-                <Link class="btn btn-info" to="/users/add">Inscription</Link>
+              <div className="btn-group">
+                <Link className="btn btn-primary" to="/users/login">Connexion</Link>
+                <Link className="btn btn-info" to="/users/add">Inscription</Link>
             </div>
 
             </div>

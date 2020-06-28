@@ -22,7 +22,7 @@ function Projects() {
   if (loading) return "Chargement...";
   if (error) 
     return (
-      <div class="alert alert-danger" role="alert">
+      <div className="alert alert-danger" role="alert">
         Erreur ! {error.message}
       </div>
     );
@@ -38,9 +38,6 @@ function Projects() {
               <h5 className="card-title">Ce projet contient {item.tasks ? item.tasks.lenght : 0} tâches.</h5>
               <p className="card-text">{item.description}</p>
               <Link className="btn btn-primary" to={("/project/" + item._id.toString())}>Détails</Link>
-            </div>
-            <div className="card-footer text-muted">
-              2 jours restants
             </div>
           </div>
         )}
