@@ -52,17 +52,17 @@ export const resolvers = {
     },
     createProjectWithInput: async (root, { input }, context, info) => {
       //input.password = await bcrypt.hash(input.password, 10);
-      return Project.create(input);
+      return await Project.create(input);
     },
     deleteProject: async (root, { _id }, context, info) => {
-      return Project.findByIdAndDelete({ _id });
+      return await Project.findByIdAndDelete({ _id });
        
     },
     updateProject: async (root, { _id, input }) => {
-      return Project.findByIdAndUpdate(_id, input, { new: true });
+      return await Project.findByIdAndUpdate(_id, input, { new: true });
     },
     addTaskToProject: async (root, {_task}) => {
-      Project.tasks.push(_task);
+      await Project.tasks.push(_task);
       return Project;
     }
   },

@@ -25,9 +25,9 @@ export const typeDef = `
     task(_id: ID!): Task
   }
   extend type Mutation {
-    createTask(name: String!,description: String!): Task
+    createTask(name: String!,description: String!, duration: String!, status: Int!): Task
     createTaskWithInput(input: TaskInput!): Task
-    deleteTask(_id: ID!): Boolean
+    deleteTask(_id: ID!): Task
     updateTask(_id: ID!,input: TaskInput!): Task
   }
 `;
