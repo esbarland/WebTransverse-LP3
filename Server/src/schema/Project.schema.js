@@ -37,13 +37,13 @@ export const resolvers = {
       return Project.schema();
     },
     projects: async () => {
-      return await Project.find().populate('tasks');
+      return await Project.find().populate('task');
     },
     project: async (root, { _id }, context, info) => {
       return await Project.findById({_id});
     },
     projectsWithTasks: async() => {
-      return await Project.find().populate('tasks');
+      return await Project.find().populate('task');
     }
   },
   Mutation: {
